@@ -3,14 +3,24 @@ public class N_Queen_Problem {
     public static int arr_scale = 8;
     public static int[][] arr = new int[arr_scale][arr_scale]; //row, column
     public static int case_n = 0;
+    public static int case_code = 0;
+    public static String S_case_code = "";
 
     public static void print() {
         for ( int i = 0; i < arr_scale; i++ ) {
             for ( int j = 0; j < arr_scale; j++ ) {
+                if ( arr[i][j] == 1 ) {
+                    S_case_code += String.valueOf(j);
+                }
                 System.out.print(arr[i][j] + " ");
+
             }
             System.out.println();
         }
+        case_code = Integer.parseInt(S_case_code);
+        System.out.println(S_case_code);
+        case_code = 0;
+        S_case_code = "";
         System.out.println("\n");
     }
 
@@ -29,16 +39,13 @@ public class N_Queen_Problem {
                 arr[r][c] = 0;
             }
         }
-
     }
-    //모든 가능한 케이스 케이스를 한 칸씩의 간격을 두고 출력. 최종적으로 몇 개의 케이스가 있는지 수색.
 
 
     public static void main(String args[]) {
         int r = 0;
         NQueenPlace(arr, r);
         System.out.println(case_n);
-
     }
 
 }
