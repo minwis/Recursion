@@ -21,7 +21,7 @@ public class IsQueenPlacable {
         }
 
         //3
-        for (int b = 1; i - b >= 0 && j + b < N_Queen_Problem.arr_scale; b++ ) {
+        for (int b = 1; i - b >= 0 && j + b < N_Queen_Problem.scale; b++ ) {
             if (arr[i - b][j + b] == 1) {
                 return false;
             }
