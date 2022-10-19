@@ -1,13 +1,14 @@
 import java.util.HashMap;
+import java.util.HashSet;
 
-public class N_Queen_Problem {
+public class N_Queen_Problem { //hash를 list로 바꾸고, 전체 rotation 디버깅. I 없애고.
 
     public static int scale = 8;
     public static int[][] arr = new int[scale][scale]; //row, column
     public static int case_n = 0;
-    public static int case_code = 0;
     public static String S_case_code = "";
-    public static HashMap<Integer, String> map = new HashMap<>();
+    public static HashSet<String> map = new HashSet<>();
+    public static int I = 0;
 
     public static void print() {
         for ( int i = 0; i < scale; i++ ) {
@@ -18,8 +19,6 @@ public class N_Queen_Problem {
             }
             System.out.println();
         }
-
-        System.out.println("\n");
     }
 
     public static void GetCaseCode() {
@@ -30,27 +29,26 @@ public class N_Queen_Problem {
                 }
             }
         }
-        case_code = Integer.parseInt(S_case_code);
     }
 
 
-    public static void ReverseLeftRight(String s) {
+    public static String ReverseLeftRight(String s) {
         String str = "";
         for ( int i = 0; i < scale;i++ ) {
             str += String.valueOf('7'-s.charAt(i));
         }
-        map.put(case_n, str);
+        return str;
     }
 
-    public static void ReverseUpDown(String s) { //return형을 void로 바꾸기
+    public static String ReverseUpDown(String s) {
         String str = "";
         for ( int i = scale - 1; i >= 0; i-- ) {
             str += String.valueOf(s.charAt(i));
         }
-        map.put(case_n, str);
+        return str;
     }
 
-    public static void degree_90(String s) { //return형을 void로 바꾸기
+    public static String degree_90(String s) {
         String str = "";
         for ( int i = 0; i < scale; i++ ) {
             for  ( int j = 0; j < scale; j++) {
@@ -60,19 +58,19 @@ public class N_Queen_Problem {
                 }
             }
         }
-        map.put(case_n, str);
+        return str;
     }
 
-    public static void degree_180(String s) { //return형을 void로 바꾸기
+    public static String degree_180(String s) {
         String str = "";
         int a = scale - 1 + '0';
         for ( int i = scale - 1; i >= 0; i-- ) {
             str += String.valueOf(a - s.charAt(i));
         }
-        map.put(case_n, str);
+        return str;
     }
 
-    public static void degree_270(String s) { //return형을 void로 바꾸기
+    public static String degree_270(String s) {
         String str = "";
         for ( int i = scale - 1; i >= 0; i-- ) {
             for ( int j = 0; j < scale; j++ ) {
@@ -81,16 +79,18 @@ public class N_Queen_Problem {
                 }
             }
         }
-        map.put(case_n, str);
+        return str;
     }
 
 
     public static void store(String str) {
-        ReverseLeftRight(str);
-        ReverseUpDown(str);
-        degree_90(str);
-        degree_180(str);
-        degree_270(str);
+        map.add(str);
+        map.add(ReverseLeftRight(str));
+        map.add(ReverseUpDown(str));
+        map.add(degree_90(str));
+        map.add(degree_180(str));
+        map.add(degree_270(str));
+        
     }
 
     public static void NQueenPlace(int[][] arr, int r) {
@@ -98,16 +98,13 @@ public class N_Queen_Problem {
             if ( IsQueenPlacable.IsQueenPlacable(arr, r, c) ) {
                 arr[r][c] = 1;
                 if ( r == scale - 1 ) {
-                    case_n++;
                     GetCaseCode();
-                    if (!map.containsValue(S_case_code)) {
+                    if (!map.contains(S_case_code)) {
+                        case_n++;
                         print();
-                        System.out.println(case_code);
-                        System.out.println(S_case_code);
-                        map.put(case_n, S_case_code);
+                        System.out.println(S_case_code + "\n");
                         store(S_case_code);
                     }
-                    case_code = 0;
                     S_case_code = "";
                     arr[r][c] = 0;
                     break;
