@@ -1,14 +1,13 @@
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class N_Queen_Problem { //hash를 list로 바꾸고, 전체 rotation 디버깅. I 없애고.
+public class N_Queen_Problem { //전체 rotation 디버깅.
 
     public static int scale = 8;
     public static int[][] arr = new int[scale][scale]; //row, column
     public static int case_n = 0;
     public static String S_case_code = "";
     public static HashSet<String> map = new HashSet<>();
-    public static int I = 0;
 
     public static void print() {
         for ( int i = 0; i < scale; i++ ) {
@@ -90,7 +89,8 @@ public class N_Queen_Problem { //hash를 list로 바꾸고, 전체 rotation 디�
         map.add(degree_90(str));
         map.add(degree_180(str));
         map.add(degree_270(str));
-        
+        map.add(ReverseUpDown(degree_90(str)));
+        map.add(ReverseUpDown(degree_270(str)));
     }
 
     public static void NQueenPlace(int[][] arr, int r) {
